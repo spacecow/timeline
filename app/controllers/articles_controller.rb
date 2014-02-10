@@ -3,19 +3,15 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
+    @article_form = ArticleForm.new
   end
 
   def create
-    @article = Article.new article_params
-    if @article.save
+    @article_form = ArticleForm.new params.require(:article)
+    if @article_form.save
       redirect_to articles_path, flash:{notice:'Article created'}
     else
       render :new
     end
-  end
-
-  def article_params
-    params.require(:article).permit(:name)
   end
 end

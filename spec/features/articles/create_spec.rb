@@ -6,15 +6,16 @@ describe 'Article create' do
     fill_in 'Name', with:name
     click_on 'Create'
   end
-  subject{ page }
 
   context "success" do
     let(:name){ 'Cressen' }
-    it{ should have_content 'Article created' }
+    it{ page.should have_content 'Article created' }
+    it{ Article.count.should be 1 }
   end
 
   context "failure" do
     let(:name){ '' }
-    it{ should have_content "can't be blank" }
+    it{ page.should have_content "can't be blank" }
+    it{ Article.count.should be 0 }
   end
 end
