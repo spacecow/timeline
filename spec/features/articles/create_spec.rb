@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe 'Article create' do
+  let(:universe){ create :universe }
   before do
+    #TODO select a universe
+    universe
     visit new_article_path
     fill_in 'Name', with:name
     click_on 'Create'

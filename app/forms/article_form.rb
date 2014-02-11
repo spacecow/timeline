@@ -1,8 +1,14 @@
 class ArticleForm
   include ActiveModel::Model
 
-  attr_accessor :name
+  attr_accessor :universe_id, :name
   validates :name, presence:true
+  validates :universe_id, presence:true
+
+  def initialize universe_id, params={}
+    self.universe_id = universe_id
+    super params
+  end
 
   def save
     if valid? 
@@ -16,6 +22,6 @@ class ArticleForm
   private
 
     def persist!
-      Article.create! name:name 
+      Article.create! universe_id:universe_id, name:name 
     end
 end

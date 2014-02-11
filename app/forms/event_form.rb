@@ -1,6 +1,7 @@
 class EventForm
   include ActiveModel::Model
   include Virtus.model
+  #TODO remove virtus
 
   attribute :title, String
   validates :title, presence:true
