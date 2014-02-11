@@ -3,11 +3,11 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event_form = EventForm.new current_universe.id
+    @event_form = EventForm.new current_universe_id
   end
 
   def create
-    @event_form = EventForm.new current_universe.id, params.require(:event)
+    @event_form = EventForm.new current_universe_id, params.require(:event)
     if @event_form.save
       redirect_to events_path, flash:{notice:'Event created'}
     else
