@@ -1,8 +1,7 @@
 class ArticleForm
   include ActiveModel::Model
-  include Virtus.model
 
-  attribute :name, String
+  attr_accessor :name
   validates :name, presence:true
 
   def save
