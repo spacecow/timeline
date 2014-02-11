@@ -1,7 +1,11 @@
 require 'spec_helper'
 
 describe 'Event create' do
+  let(:universe){ create :universe }
+
   before do
+    #TODO select a universe
+    universe
     visit new_event_path
     fill_in 'Title', with:title
     click_on 'Create'

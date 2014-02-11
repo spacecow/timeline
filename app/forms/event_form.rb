@@ -1,8 +1,14 @@
 class EventForm
   include ActiveModel::Model
 
-  attr_accessor :title
+  attr_accessor :universe_id, :title
   validates :title, presence:true
+  validates :universe_id, presence:true
+
+  def initialize universe_id, params={}
+    self.universe_id = universe_id
+    super params
+  end
 
   def save
     if valid?
@@ -16,6 +22,6 @@ class EventForm
   private
 
     def persist!
-      Event.create! title:title      
+      Event.create! universe_id:universe_id, title:title      
     end
 end

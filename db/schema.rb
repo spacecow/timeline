@@ -19,7 +19,8 @@ ActiveRecord::Schema.define(version: 20140211101357) do
   end
 
   create_table "events", force: true do |t|
-    t.string "title"
+    t.string  "title"
+    t.integer "universe_id"
   end
 
   create_table "universes", force: true do |t|
