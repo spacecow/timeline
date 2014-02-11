@@ -13,12 +13,10 @@ describe 'Event create' do
   context "success" do
     let(:title){ 'The Trident' }
     it{ page.should have_content 'Event created' }
-    it{ Event.count.should be 1 }
   end
 
   context "failure" do
     let(:title){ '' }
     it{ page.should have_content "can't be blank" }
-    it{ Event.count.should be 0 }
   end
 end
