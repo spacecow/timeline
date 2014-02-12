@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
     session[:current_universe_id] = id
   end
 
-  def current_universe_id
-    @current_universe_id ||= session[:current_universe_id] 
+  def current_universe
+    @current_universe ||= Universe.find session[:current_universe_id] 
   end
 end
