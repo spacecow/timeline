@@ -4,7 +4,7 @@ class ArticlesController < ApplicationController
 
   def show
     article = current_universe.articles.find params[:id]
-    @add_events_form = AddEventsForm.new current_universe, article
+    @add_events_form = AddEventsForm.new article
   end
 
   def new
@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
 
   def update
     article = current_universe.articles.find params[:id]
-    @add_events_form = AddEventsForm.new current_universe, article
+    @add_events_form = AddEventsForm.new article
     if @add_events_form.submit params.require(:article)
       redirect_to articles_path, flash:{notice:'Event(s) added'}
     else

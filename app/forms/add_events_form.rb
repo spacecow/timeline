@@ -1,11 +1,12 @@
+require 'pry'
+
 class AddEventsForm
   include ActiveModel::Model
 
-  attr_accessor :universe, :article, :event_tokens
+  attr_accessor :article, :event_tokens
   validate :events_belong_to_same_universe
   
-  def initialize universe, article 
-    self.universe = universe
+  def initialize article 
     self.article = article
     self.event_tokens = article.event_ids.join(',')
   end
@@ -25,18 +26,15 @@ class AddEventsForm
 
   private
 
-    def event_ids
-      event_tokens.split(',')
-    end
-
-    def persist!
-      article.update event_ids:event_ids
-    end
+    def unique_event_ids; event_tokens.split(',').map(&:to_i).uniq end
+    def persist!; article.update event_ids:unique_event_ids end
     
     def events_belong_to_same_universe
-      universe.events.find event_ids 
-    rescue ActiveRecord::RecordNotFound
-      errors.add(:event_tokens, "wrong universe") 
+      errors.add(:event_tokens, "wrong universe") unless (unique_event_ids - universe_event_ids).empty?
     end
+
+    def universe; article.universe end
+    def universe_events; universe.events end
+    def universe_event_ids; universe_events.map(&:id) end
 
 end
