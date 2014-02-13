@@ -1,6 +1,10 @@
 Timeline::Application.routes.draw do
   resources :articles, only:[:index, :show, :new, :create, :update]
-  resources :events, only: [:index, :new, :create]
+  resources :events, only: [:index, :new, :create, :edit, :update] do
+    member do
+      get :duplicate
+    end
+  end
   resources :universes, only: [:show, :index]
 
   resources :article_forms, path: :articles

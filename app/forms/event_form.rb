@@ -1,13 +1,15 @@
 class EventForm
   include ActiveModel::Model
 
-  attr_accessor :universe_id, :title
+  attr_accessor :event, :title, :persisted
   validates :title, presence:true
-  validates :universe_id, presence:true
+  validate :uniqueness_of_title
 
-  def initialize universe_id, params={}
-    self.universe_id = universe_id
+  def initialize event, params={}, persisted = nil
+    self.event = event
+    self.title = event.title
     super params
+    self.persisted = persisted
   end
 
   def save
@@ -19,9 +21,20 @@ class EventForm
     end
   end
 
+  def id; event.id end
+  def persisted?
+    return persisted unless persisted.nil?
+    event.new_record? ? false : true
+  end
+
   private
 
     def persist!
-      Event.create! universe_id:universe_id, title:title      
+      event.update title:title      
     end
+
+    def uniqueness_of_title
+      errors.add(:title, 'has already been taken') if Event.all.map(&:title).include? title
+    end
+
 end
