@@ -29,7 +29,8 @@ class ArticleForm
   private
 
     def upload_must_be_image
-      errors.add(:image, image_integrity_error.message) if image_integrity_error
+      error = image_integrity_error
+      errors.add(:image, error.message) if error
     end
 
     def persist!

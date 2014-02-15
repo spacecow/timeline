@@ -9,18 +9,21 @@ describe EventForm do
   describe "#valid?" do
     let(:title){ "Cressen" }
     let(:event_titles){ [] }
-    before{ form.should_receive(:event_titles).and_return event_titles }
-    subject{ form.valid? }
-    it{ should be true } 
+    before do
+      form.should_receive(:event_titles).and_return event_titles
+      form.valid?
+    end
+    subject{ form.errors.messages }
+    it{ should be_empty } 
 
     context "title is blank" do
       let(:title){ "" }
-      it{ should be false }
+      its([:title]){ should eq ["can't be blank"] }
     end
 
-    context "title is a duplicate" do
+    context "title is duplicated" do
       let(:event_titles){ [title] }
-      it{ should be false }
+      its([:title]){ should eq ["has already been taken"] }
     end
   end
 end

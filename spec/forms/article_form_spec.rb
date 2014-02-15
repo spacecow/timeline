@@ -8,12 +8,22 @@ describe ArticleForm do
 
   describe "#valid?" do
     let(:name){ "Cressen" }
-    subject{ form.valid? }
-    it{ should be true } 
+    let(:image_error){ nil }
+    before do
+      form.should_receive(:image_integrity_error).and_return image_error
+      form.valid?
+    end
+    subject{ form.errors.messages }
+    it{ should be_empty } 
 
     context "name is blank" do
       let(:name){ "" }
-      it{ should be false }
+      its([:name]){ should eq ["can't be blank"] }
+    end
+
+    context "attached file is of wrong file format" do
+      let(:image_error){ double message:'file extension error' }
+      its([:image]){ should eq ["file extension error"] }
     end
   end
 end
