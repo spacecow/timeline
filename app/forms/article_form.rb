@@ -1,17 +1,24 @@
+require 'carrierwave' 
+require_relative '../../app/uploaders/image_uploader'
+
 class ArticleForm
   include ActiveModel::Model
+  extend CarrierWave::Mount
 
-  attr_accessor :universe_id, :name
+  attr_accessor :article, :name, :image
   validates :name, presence:true
-  validates :universe_id, presence:true
+  validate :upload_must_be_image
 
-  def initialize universe_id, params={}
-    self.universe_id = universe_id
+  mount_uploader :image, ImageUploader
+
+  def initialize article, params={}
+    self.article = article
+    self.name = article.name
     super params
   end
 
   def save
-    if valid? 
+    if valid?
       persist!
       true
     else
@@ -21,7 +28,11 @@ class ArticleForm
 
   private
 
+    def upload_must_be_image
+      errors.add(:image, image_integrity_error.message) if image_integrity_error
+    end
+
     def persist!
-      Article.create! universe_id:universe_id, name:name 
+      article.update! name:name, image:image
     end
 end

@@ -30,11 +30,15 @@ class EventForm
   private
 
     def persist!
-      event.update title:title      
+      event.update! title:title      
     end
 
     def uniqueness_of_title
-      errors.add(:title, 'has already been taken') if Event.all.map(&:title).include? title
+      errors.add(:title, 'has already been taken') if event_titles.include? title
+    end
+
+    def event_titles
+      Event.all.map(&:title)
     end
 
 end

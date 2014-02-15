@@ -8,12 +8,13 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @article_form = ArticleForm.new current_universe.id
+    article = Article.new
+    @article_form = ArticleForm.new article
   end
 
   def create
-    universe = Universe.last
-    @article_form = ArticleForm.new current_universe.id, params.require(:article)
+    article = current_universe.articles.build
+    @article_form = ArticleForm.new article, params.require(:article)
     if @article_form.save
       redirect_to articles_path, flash:{notice:'Article created'}
     else

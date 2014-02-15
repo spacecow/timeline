@@ -16,11 +16,13 @@ ActiveRecord::Schema.define(version: 20140211154001) do
   create_table "articles", force: true do |t|
     t.string  "name"
     t.integer "universe_id"
+    t.string  "image"
   end
 
   create_table "events", force: true do |t|
     t.string  "title"
     t.integer "universe_id"
+    t.string  "image"
   end
 
   create_table "participations", force: true do |t|

@@ -6,4 +6,6 @@ class Article < ActiveRecord::Base
 
   validates :name, presence:true
   validates :universe, presence:true
+
+  mount_uploader :image, ImageUploader
 end
