@@ -1,4 +1,4 @@
 <%= simple_form_for @add_events_form, as: :article do |f| %>
-  <%= f.input :event_tokens %>
+  <%= f.input :event_tokens, input_html:{data:{load:@add_events_form.events}} %>
   <%= f.button :submit %>
 <% end %>

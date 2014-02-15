@@ -13,6 +13,7 @@ class AddEventsForm
 
   def id; article.id end
   def persisted?; true end
+  def events; article.events end
 
   def submit params
     self.event_tokens = params[:event_tokens]

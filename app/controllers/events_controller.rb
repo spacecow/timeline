@@ -1,6 +1,10 @@
 class EventsController < ApplicationController
   def index
     @events = current_universe.events
+    respond_to do |format|
+      format.html
+      format.json { render json:@events.where("title like ?", "%#{params[:q]}%") }
+    end
   end
 
   def show
