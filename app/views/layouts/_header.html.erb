@@ -1,0 +1,15 @@
+<ul>
+  <li class="universes">
+    <%= link_to 'Universes', universes_path %>
+  </li>
+  <% if current_universe? %>
+    <li class="articles">
+      <%= link_to 'Articles', articles_path %>
+    </li>
+  <% end %>
+  <% if current_universe? %>
+    <li class="events">
+      <%= link_to 'Events', events_path %>
+    </li>
+  <% end %>
+</ul>

@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   def index
+    @articles = current_universe.articles
   end
 
   def show

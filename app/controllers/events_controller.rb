@@ -1,5 +1,9 @@
 class EventsController < ApplicationController
   def index
+    @events = current_universe.events
+  end
+
+  def show
   end
 
   def new
