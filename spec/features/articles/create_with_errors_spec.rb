@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Article create' do
+describe 'Article create with errors' do
   let(:universe){ create :universe }
   before do
     visit universe_path(universe)

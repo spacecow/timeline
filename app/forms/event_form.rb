@@ -1,9 +1,13 @@
 class EventForm
   include ActiveModel::Model
+  extend CarrierWave::Mount
 
-  attr_accessor :event, :title, :persisted
+  attr_accessor :event, :title, :image, :persisted
   validates :title, presence:true
   validate :uniqueness_of_title
+  validate :upload_must_be_image
+
+  mount_uploader :image, ImageUploader
 
   def initialize event, params={}, persisted = nil
     self.event = event
@@ -30,7 +34,12 @@ class EventForm
   private
 
     def persist!
-      event.update! title:title      
+      event.update! title:title, image:image
+    end
+
+    def upload_must_be_image
+      error = image_integrity_error
+      errors.add(:image, error.message) if error
     end
 
     def uniqueness_of_title

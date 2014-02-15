@@ -6,4 +6,6 @@ class Event < ActiveRecord::Base
 
   validates :title, presence:true, uniqueness:true
   validates :universe, presence:true
+
+  mount_uploader :image, ImageUploader
 end

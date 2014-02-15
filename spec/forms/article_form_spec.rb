@@ -1,5 +1,7 @@
 require 'fast_helper'
 require 'active_model'
+require 'carrierwave' 
+require_relative '../../app/uploaders/image_uploader'
 require_relative '../../app/forms/article_form'
 
 describe ArticleForm do
@@ -9,7 +11,9 @@ describe ArticleForm do
   describe "#valid?" do
     let(:name){ "Cressen" }
     let(:image_error){ nil }
+    let(:article_names){ [] }
     before do
+      form.should_receive(:article_names).and_return article_names
       form.should_receive(:image_integrity_error).and_return image_error
       form.valid?
     end
@@ -24,6 +28,11 @@ describe ArticleForm do
     context "attached file is of wrong file format" do
       let(:image_error){ double message:'file extension error' }
       its([:image]){ should eq ["file extension error"] }
+    end
+
+    context "title is duplicated" do
+      let(:article_names){ [name] }
+      its([:name]){ should eq ["has already been taken"] }
     end
   end
 end

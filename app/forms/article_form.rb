@@ -1,6 +1,3 @@
-require 'carrierwave' 
-require_relative '../../app/uploaders/image_uploader'
-
 class ArticleForm
   include ActiveModel::Model
   extend CarrierWave::Mount
@@ -8,6 +5,7 @@ class ArticleForm
   attr_accessor :article, :name, :image
   validates :name, presence:true
   validate :upload_must_be_image
+  validate :uniqueness_of_name
 
   mount_uploader :image, ImageUploader
 
@@ -36,4 +34,13 @@ class ArticleForm
     def persist!
       article.update! name:name, image:image
     end
+
+    def uniqueness_of_name
+      errors.add(:name, 'has already been taken') if article_names.include? name
+    end
+
+    def article_names
+      Article.all.map(&:name)
+    end
+
 end

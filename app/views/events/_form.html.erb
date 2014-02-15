@@ -1,4 +1,6 @@
 <%= simple_form_for event_form, as: :event do |f| %>
   <%= f.input :title %>
+  <%= f.input :image %>
+  <%= f.input :image_cache, as: :hidden %>
   <%= f.button :submit %>
 <% end %>

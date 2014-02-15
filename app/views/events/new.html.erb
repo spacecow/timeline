@@ -1,4 +1,1 @@
-<%= simple_form_for @event_form, as: :event do |f| %>
-  <%= f.input :title %>
-  <%= f.button :submit %>
-<% end %>
+<%= render 'form', event_form:@event_form %>
