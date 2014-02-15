@@ -8,7 +8,7 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    article = Article.new
+    article = current_universe.articles.build 
     @article_form = ArticleForm.new article
   end
 

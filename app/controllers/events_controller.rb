@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   end
 
   def new
-    event = Event.new 
+    event = current_universe.events.build 
     @event_form = EventForm.new event
   end
 

@@ -46,8 +46,7 @@ class EventForm
       errors.add(:title, 'has already been taken') if event_titles.include? title
     end
 
-    def event_titles
-      Event.all.map(&:title)
-    end
+    def universe; @universe ||= event.universe end
+    def event_titles; universe.events.map(&:title) end
 
 end

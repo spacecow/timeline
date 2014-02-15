@@ -5,17 +5,17 @@ describe 'Article create' do
   before do
     visit universe_path(universe)
     visit new_article_path
-    fill_in 'Name', with:name
-    click_on 'Create'
+    fill_in 'Name', with:'Cressen'
   end
 
   context "success" do
-    let(:name){ 'Cressen' }
+    before{ click_on 'Create' }
     it{ page.should have_content 'Article created' }
   end
 
   context "failure" do
-    let(:name){ '' }
-    it{ page.should have_content "can't be blank" }
+    before{ create :article, universe:universe, name:'Cressen'
+            click_on 'Create' }
+    it{ page.should have_content "has already been taken" }
   end
-end
+end 

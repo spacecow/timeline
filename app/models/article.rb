@@ -4,7 +4,6 @@ class Article < ActiveRecord::Base
   has_many :participations, dependent: :destroy
   has_many :events, through: :participations
 
-  validates :name, presence:true
   validates :universe, presence:true
 
   mount_uploader :image, ImageUploader

@@ -12,7 +12,6 @@ describe 'Event create with errors' do
     click_on 'Create'
   end
 
-  #TODO should change image_url from nil to ...
   context "success" do
     it{ page.should have_content 'Event created' }
     context "created event" do

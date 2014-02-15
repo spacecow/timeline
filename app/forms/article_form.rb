@@ -39,8 +39,7 @@ class ArticleForm
       errors.add(:name, 'has already been taken') if article_names.include? name
     end
 
-    def article_names
-      Article.all.map(&:name)
-    end
+    def article_names; universe.articles.map(&:name) end
+    def universe; article.universe end
 
 end

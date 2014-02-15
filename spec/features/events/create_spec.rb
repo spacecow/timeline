@@ -6,17 +6,17 @@ describe 'Event create' do
   before do
     visit universe_path(universe)
     visit new_event_path
-    fill_in 'Title', with:title
-    click_on 'Create'
+    fill_in 'Title', with:'The Trident'
   end
 
   context "success" do
-    let(:title){ 'The Trident' }
+    before{ click_on 'Create' }
     it{ page.should have_content 'Event created' }
   end
 
   context "failure" do
-    let(:title){ '' }
-    it{ page.should have_content "can't be blank" }
+    before{ create :event, universe:universe, title:'The Trident'
+            click_on 'Create' }
+    it{ page.should have_content "has already been taken" }
   end
 end

@@ -4,7 +4,6 @@ class Event < ActiveRecord::Base
   has_many :participations, dependent: :destroy
   has_many :articles, through: :participations
 
-  validates :title, presence:true, uniqueness:true
   validates :universe, presence:true
 
   mount_uploader :image, ImageUploader
