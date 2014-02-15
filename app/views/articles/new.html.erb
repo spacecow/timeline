@@ -1,6 +1,1 @@
-<%= simple_form_for @article_form, as: :article do |f| %>
-  <%= f.input :name, required:false %>
-  <%= f.input :image %>
-  <%= f.input :image_cache %>
-  <%= f.button :submit %>
-<% end %>
+<%= render 'form', article_form:@article_form %>
