@@ -7,4 +7,14 @@ class Article < ActiveRecord::Base
   validates :universe, presence:true
 
   mount_uploader :image, ImageUploader
+
+  def self.inherited(child)
+    child.instance_eval do
+      def model_name
+        Article.model_name
+      end
+    end
+    super
+  end
+
 end

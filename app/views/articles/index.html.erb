@@ -1,5 +1,5 @@
 <ul class="articles">
-  <%= render @articles %>
+  <%= render partial:'articles/article', collection:@articles %>
 </ul>
 
 <%= link_to 'New Article', new_article_path %>

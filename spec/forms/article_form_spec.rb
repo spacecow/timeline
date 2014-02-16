@@ -5,13 +5,14 @@ require_relative '../../app/uploaders/image_uploader'
 require_relative '../../app/forms/article_form'
 
 describe ArticleForm do
-  let(:article){ double name:name }
+  let(:article){ double name:name, type:type }
   let(:form){ ArticleForm.new article }
 
   describe "#valid?" do
     let(:name){ "Cressen" }
     let(:image_error){ nil }
     let(:article_names){ [] }
+    let(:type){ "Character" }
     before do
       form.should_receive(:article_names).and_return article_names
       form.should_receive(:image_integrity_error).and_return image_error
@@ -33,6 +34,11 @@ describe ArticleForm do
     context "title is duplicated" do
       let(:article_names){ [name] }
       its([:name]){ should eq ["has already been taken"] }
+    end
+
+    context "type must be of one of predefined types" do
+      let(:type){ ["Yeah"] }
+      its([:type]){ should eq ["is not included in the list"] }
     end
   end
 end

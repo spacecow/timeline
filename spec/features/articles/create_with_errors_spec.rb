@@ -6,6 +6,7 @@ describe 'Article create with errors' do
     visit universe_path(universe)
     visit new_article_path
     fill_in 'Name', with:''
+    select 'Organization', from:'Type'
     attach_file 'Image', 'spec/image.jpg'
     click_on 'Create'
     fill_in 'Name', with:'Cressen'

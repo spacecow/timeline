@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20140211154001) do
     t.string  "name"
     t.integer "universe_id"
     t.string  "image"
+    t.string  "type"
   end
 
   create_table "events", force: true do |t|
