@@ -9,18 +9,23 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    article = current_universe.articles.build 
+    article = current_universe.articles.build
     @article_form = ArticleForm.new article
   end
 
   def create
     article = current_universe.articles.build
-    @article_form = ArticleForm.new article, params.require(:article)
-    if @article_form.save
+    @article_form = ArticleForm.new article
+    if @article_form.save params.require(:article)
       redirect_to articles_path, flash:{notice:'Article created'}
     else
       render :new
     end
+  end
+
+  def edit
+    article = current_universe.articles.find params[:id]
+    @article_form = ArticleForm.new article
   end
 
   def update

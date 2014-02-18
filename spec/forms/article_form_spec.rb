@@ -1,11 +1,11 @@
 require 'fast_helper'
 require 'active_model'
-require 'carrierwave' 
+require 'carrierwave'
 require_relative '../../app/uploaders/image_uploader'
 require_relative '../../app/forms/article_form'
 
 describe ArticleForm do
-  let(:article){ double name:name, type:type }
+  let(:article){ double name:name, type:type, image:nil }
   let(:form){ ArticleForm.new article }
 
   describe "#valid?" do
@@ -19,7 +19,7 @@ describe ArticleForm do
       form.valid?
     end
     subject{ form.errors.messages }
-    it{ should be_empty } 
+    it{ should be_empty }
 
     context "name is blank" do
       let(:name){ "" }

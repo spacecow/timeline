@@ -2,7 +2,7 @@ class ArticleForm
   include ActiveModel::Model
   extend CarrierWave::Mount
 
-  TYPES = %w(Character Place Organization) 
+  TYPES = %w(Character Place Organization)
 
   attr_reader :type
   attr_accessor :article, :name, :image
@@ -13,19 +13,23 @@ class ArticleForm
 
   mount_uploader :image, ImageUploader
 
-  def initialize article, params={}
+  def initialize article
     self.article = article
     self.name = article.name
     self.type = article.type
-    super params
+    self.image = article.image
   end
 
   def type= type
-    @type = type 
+    @type = type
     create_subclass_skeleton
   end
 
-  def save
+  def save params
+    self.name = params[:name]
+    self.type = params[:type]
+    self.image = params[:image]
+    self.image_cache = params[:image_cache]
     if valid?
       persist!
       true

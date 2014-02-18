@@ -1,7 +1,8 @@
 <%= simple_form_for article_form, as: :article do |f| %>
   <%= f.input :name, required:false %>
   <%= f.input :type, collection:ArticleForm::TYPES %>
+  <%= image_tag article_form.image_url(:thumb).to_s %>
   <%= f.input :image %>
-  <%= f.input :image_cache, as: :hidden %>
+  <%= f.input :image_cache, label:false %>
   <%= f.button :submit %>
 <% end %>
