@@ -5,7 +5,7 @@ class ArticleForm
   TYPES = %w(Character Place Organization)
 
   attr_reader :type
-  attr_accessor :article, :name, :image
+  attr_accessor :article, :name
   validates :name, presence:true
   validates :type, inclusion:TYPES
   validate :upload_must_be_image
@@ -17,8 +17,9 @@ class ArticleForm
     self.article = article
     self.name = article.name
     self.type = article.type
-    self.image = article.image
   end
+
+  def image_url(version); image.url(version) || article.image_url(version) end
 
   def type= type
     @type = type
@@ -37,6 +38,9 @@ class ArticleForm
       false
     end
   end
+
+  def id; article.id end
+  def persisted?; article.new_record? ? false : true end
 
   private
 
@@ -63,7 +67,7 @@ class ArticleForm
       article.update! name:name, image:image, type:type
     end
 
-    def article_names; universe.articles.map(&:name) end
+    def article_names; universe.articles.reject{|e| e==article}.map(&:name) end
     def universe; article.universe end
 
 end

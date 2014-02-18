@@ -28,6 +28,16 @@ class ArticlesController < ApplicationController
     @article_form = ArticleForm.new article
   end
 
+  def update
+    article = current_universe.articles.find params[:id]
+    @article_form = ArticleForm.new article
+    if @article_form.save params.require(:article)
+      redirect_to edit_article_path(article), flash:{notice:'Article updated'}
+    else
+      render :edit
+    end
+  end
+
   def update_events
     article = current_universe.articles.find params[:id]
     @add_events_form = AddEventsForm.new article

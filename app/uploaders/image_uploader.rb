@@ -13,9 +13,13 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    model_class = model.class
-    model_class = model.class.superclass until model_class.superclass.to_s == "ActiveRecord::Base"
-    "uploads/#{model_class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    #TODO make general formula here
+    #"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    if model.instance_of?(Event)
+      "uploads/event/#{mounted_as}/#{model.id}"
+    else
+      "uploads/article/#{mounted_as}/#{model.id}"
+    end
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
