@@ -1,5 +1,3 @@
-require 'pry'
-
 class AddEventsForm
   include ActiveModel::Model
 

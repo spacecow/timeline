@@ -2,8 +2,7 @@ require 'spec_helper'
 
 describe 'events/_add_articles_form.html.erb' do
   let(:rendering){ Capybara.string rendered }
-  let(:event){ double }
-  let(:form){ AddArticlesForm.new event }
+  let(:form){ AddArticlesForm.new ids:[1], out_of: :universe_ids }
   before{ render 'add_articles_form', add_articles_form:form }
 
   describe 'Articles' do
