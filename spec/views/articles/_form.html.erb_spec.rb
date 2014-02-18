@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe 'articles/_form.html.erb' do
-  let(:article){ Organization.new name:'Cressen' }
+  let(:image){ File.open "spec/image.jpg" }
+  let(:article){ Organization.new name:'Cressen', image:image }
   let(:article_form){ ArticleForm.new article }
   let(:rendering){ Capybara.string rendered }
   before{ render 'form', article_form:article_form }
@@ -30,12 +31,18 @@ describe 'articles/_form.html.erb' do
     end
   end
 
+  describe 'Thumb image' do
+    subject(:div){ rendering.find 'img' }
+    its([:src]){ should match  /thumb_image\.jpg/ }
+  end
+
   describe 'Image Cache' do
     subject(:div){ rendering.find '.article_image_cache' }
     it{ should_not have_selector 'label' }
     context 'value' do
       subject{ div.find 'input' }
       its([:type]){ should eq 'text' }
+      its(:value){ should be_nil }
     end
   end
 end
