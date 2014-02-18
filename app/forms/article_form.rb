@@ -19,7 +19,9 @@ class ArticleForm
     self.type = article.type
   end
 
-  def image_url(version); image.url(version) || article.image_url(version) end
+  def image_url(version)
+    image.url(version) || article.image_url(version) 
+  end
 
   def type= type
     @type = type
@@ -60,14 +62,16 @@ class ArticleForm
     end
 
     def uniqueness_of_name
-      errors.add(:name, 'has already been taken') if article_names.include? name
+      errors.add(:name, 'has already been taken') if other_names.include? name
     end
 
     def persist!
       article.update! name:name, image:image, type:type
     end
 
-    def article_names; universe.articles.reject{|e| e==article}.map(&:name) end
+    def other_names; other_articles.map(&:name) end
+    def other_articles; universe_articles.reject{|e| e==article} end
+    def universe_articles; universe.articles end 
     def universe; article.universe end
 
 end

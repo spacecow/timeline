@@ -11,10 +11,10 @@ describe ArticleForm do
   describe "#valid?" do
     let(:name){ "Cressen" }
     let(:image_error){ nil }
-    let(:article_names){ [] }
+    let(:other_names){ [] }
     let(:type){ "Character" }
     before do
-      form.should_receive(:article_names).and_return article_names
+      form.should_receive(:other_names).and_return other_names
       form.should_receive(:image_integrity_error).and_return image_error
       form.valid?
     end
@@ -32,7 +32,7 @@ describe ArticleForm do
     end
 
     context "title is duplicated" do
-      let(:article_names){ [name] }
+      let(:other_names){ [name] }
       its([:name]){ should eq ["has already been taken"] }
     end
 

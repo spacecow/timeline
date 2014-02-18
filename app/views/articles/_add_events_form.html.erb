@@ -1,0 +1,4 @@
+<%= simple_form_for add_events_form, url:update_events_article_path(add_events_form), as: :article, method: :put do |f| %>
+  <%= f.input :event_tokens, input_html:{data:{load:add_events_form.events}} %>
+  <%= f.button :submit %>
+<% end %>
