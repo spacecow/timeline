@@ -1,7 +1,11 @@
 Timeline::Application.routes.draw do
   root :to => 'universes#index'
 
-  resources :articles, only:[:index, :show, :new, :create, :edit, :update]
+  resources :articles, only:[:index, :show, :new, :create, :edit, :update] do
+    member do
+      put :update_events
+    end
+  end
   resources :events, only: [:index, :show, :new, :create, :edit, :update] do
     member do
       get :duplicate

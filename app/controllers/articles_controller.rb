@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
     @article_form = ArticleForm.new article
   end
 
-  def update
+  def update_events
     article = current_universe.articles.find params[:id]
     @add_events_form = AddEventsForm.new article
     if @add_events_form.submit params.require(:article)
