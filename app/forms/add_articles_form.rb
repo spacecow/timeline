@@ -1,18 +1,27 @@
 class AddArticlesForm
   include ActiveModel::Model
 
-  attr_accessor :tokens, :universe_ids
+  attr_accessor :event, :tokens
   alias_method :article_tokens, :tokens
 
   validate :articles_belong_to_same_universe
 
-  def initialize(ids:[], out_of:[])
-    self.tokens = ids.join(',') 
-    self.universe_ids = out_of 
+  def initialize event
+    self.event = event
+    self.tokens = event.article_ids.join(',') 
   end
 
-  def id; 666 end
+  def id; event.id end
   def persisted?; true end
+
+  def submit params
+    self.tokens = params[:article_tokens]
+    if valid?
+      true
+    else
+      false
+    end
+  end
 
   private
 
@@ -21,5 +30,9 @@ class AddArticlesForm
     def articles_belong_to_same_universe
       errors.add(:article_tokens, "wrong universe") unless (unique_ids - universe_ids).empty?
     end
+
+    def universe; event.universe end
+    def universe_articles; universe.articles end
+    def universe_ids; universe_articles.map(&:id) end
 
 end

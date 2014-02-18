@@ -3,3 +3,5 @@ en:
     labels:
       article:
         event_tokens: Events
+      event:
+        article_tokens: Articles

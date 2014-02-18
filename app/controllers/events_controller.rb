@@ -8,6 +8,8 @@ class EventsController < ApplicationController
   end
 
   def show
+    event = current_universe.events.find params[:id]
+    @add_articles_form = AddArticlesForm.new event 
   end
 
   def new
@@ -37,6 +39,16 @@ class EventsController < ApplicationController
       redirect_to events_path, flash:{notice:'Event updated'}
     else
       render :edit
+    end
+  end
+
+  def update_articles
+    event = current_universe.events.find params[:id]
+    @add_articles_form = AddArticlesForm.new event 
+    if @add_articles_form.submit params.require(:event)
+      redirect_to events_path, flash:{notice:'Articles updated'}
+    else
+      render :show
     end
   end
 

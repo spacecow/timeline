@@ -1,12 +1,14 @@
 class AddEventsForm
   include ActiveModel::Model
 
-  attr_accessor :article, :event_tokens
+  attr_accessor :article, :tokens
+  alias_method :event_tokens, :tokens
+
   validate :events_belong_to_same_universe
   
   def initialize article 
     self.article = article
-    self.event_tokens = article.event_ids.join(',')
+    self.tokens = article.event_ids.join(',')
   end
 
   def id; article.id end
@@ -14,7 +16,7 @@ class AddEventsForm
   def events; article.events end
 
   def submit params
-    self.event_tokens = params[:event_tokens]
+    self.tokens = params[:event_tokens]
     if valid?
       persist!
       true
@@ -25,15 +27,15 @@ class AddEventsForm
 
   private
 
-    def unique_event_ids; event_tokens.split(',').map(&:to_i).uniq end
-    def persist!; article.update event_ids:unique_event_ids end
+    def unique_ids; tokens.split(',').map(&:to_i).uniq end
+    def persist!; article.update event_ids:unique_ids end
     
     def events_belong_to_same_universe
-      errors.add(:event_tokens, "wrong universe") unless (unique_event_ids - universe_event_ids).empty?
+      errors.add(:event_tokens, "wrong universe") unless (unique_ids - universe_ids).empty?
     end
 
     def universe; article.universe end
     def universe_events; universe.events end
-    def universe_event_ids; universe_events.map(&:id) end
+    def universe_ids; universe_events.map(&:id) end
 
 end

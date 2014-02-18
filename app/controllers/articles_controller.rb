@@ -42,7 +42,7 @@ class ArticlesController < ApplicationController
     article = current_universe.articles.find params[:id]
     @add_events_form = AddEventsForm.new article
     if @add_events_form.submit params.require(:article)
-      redirect_to articles_path, flash:{notice:'Event(s) added'}
+      redirect_to articles_path, flash:{notice:'Events updated'}
     else
       render :show
     end

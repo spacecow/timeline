@@ -6,18 +6,18 @@ describe 'Article show, add events' do
   before do
     visit universe_path(article.universe)
     visit article_path(article)
-    fill_in "Events", with:event_ids
+    fill_in "Events", with:event_tokens
     click_on "Update"
   end
   subject{ page }
 
   context "success" do
-    let(:event_ids){ event.id }
-    it{ should have_content "Event(s) added" }
+    let(:event_tokens){ event.id }
+    it{ should have_content "Events updated" }
   end
 
   context "failure" do
-    let(:event_ids){ "kuk" }
+    let(:event_tokens){ "666" }
     it{ should have_content "wrong universe" }
   end
 end
