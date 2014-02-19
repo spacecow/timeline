@@ -7,4 +7,7 @@ class Event < ActiveRecord::Base
   validates :universe, presence:true
 
   mount_uploader :image, ImageUploader
+
+  def universe_article_ids; universe.article_ids end
+
 end

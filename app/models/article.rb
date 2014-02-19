@@ -1,5 +1,5 @@
 class Article < ActiveRecord::Base
-  belongs_to :universe 
+  belongs_to :universe
 
   has_many :participations, dependent: :destroy
   has_many :events, through: :participations
@@ -16,5 +16,7 @@ class Article < ActiveRecord::Base
     end
     super
   end
+
+  def universe_event_ids; universe.event_ids end
 
 end
