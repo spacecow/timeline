@@ -1,6 +1,25 @@
+class Repository
+  attr_accessor :universe
+
+  def initialize universe
+    self.universe = universe
+  end
+
+  def find_all_events
+    universe.events
+  end
+  def new_event *attrs
+    event = universe.events.build 
+    EventForm.new event, *attrs
+  end
+  def save_event event
+    event.save
+  end
+end
+
 class EventsController < ApplicationController
   def index
-    @events = current_universe.events
+    @events = repo.find_all_events
     respond_to do |format|
       format.html
       format.json { render json:@events.where("title like ?", "%#{params[:q]}%") }
@@ -13,18 +32,20 @@ class EventsController < ApplicationController
   end
 
   def new
-    event = current_universe.events.build 
-    @event_form = EventForm.new event
+    @event = repo.new_event
   end
 
   def create
-    event = current_universe.events.build
-    @event_form = EventForm.new event, params.require(:event)
-    if @event_form.save
-      redirect_to events_path, flash:{notice:'Event created'}
-    else
-      render :new
-    end
+    CreateRunner.new(self).run(params.require(:event))
+  end
+
+  def create_successful msg
+    redirect_to events_path, flash:{notice:msg}
+  end
+
+  def create_failed event
+    @event = event
+    render :new
   end
 
   def edit
@@ -55,5 +76,9 @@ class EventsController < ApplicationController
   def duplicate
     event = current_universe.events.find params[:id]
     @event_form = EventForm.new event, {}, false
+  end
+
+  def repo
+    @repo ||= Repository.new current_universe
   end
 end
