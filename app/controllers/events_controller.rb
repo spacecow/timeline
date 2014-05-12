@@ -18,6 +18,8 @@ class Repository
 end
 
 class EventsController < ApplicationController
+  include EventRunners
+
   def index
     @events = repo.find_all_events
     respond_to do |format|
@@ -36,16 +38,15 @@ class EventsController < ApplicationController
   end
 
   def create
-    CreateRunner.new(self).run(params.require(:event))
-  end
-
-  def create_successful msg
-    redirect_to events_path, flash:{notice:msg}
-  end
-
-  def create_failed event
-    @event = event
-    render :new
+    run(Create, params.require(:event)) do |on|
+      on.success {
+        redirect_to events_path, flash:{notice:'Event created'}
+      }
+      on.failure {|event|
+        @event = event
+        render :new
+      }
+    end
   end
 
   def edit
