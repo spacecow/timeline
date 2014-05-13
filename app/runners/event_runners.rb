@@ -2,12 +2,12 @@ require_dependency './app/runners/runner'
 
 module EventRunners
   class Create < Runner
-    def run event_attrs
-      event = repo.new_event event_attrs
+    def run event_params
+      event = repo.new_event event_params
       if repo.save_event event
-        context.create_successful event
+        success
       else
-        context.create_failed event
+        failure event
       end
     end
   end

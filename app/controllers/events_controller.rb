@@ -20,16 +20,14 @@ class EventsController < ApplicationController
 
   def create
     run(Create, event_params) do |on|
+      on.success {
+        redirect_to events_path, flash:{notice:'Event created'}
+      }
+      on.failure { |event|
+        @event = event
+        render :new
+      }
     end
-  end
-
-  def create_successful event
-    redirect_to events_path, flash:{notice:'Event created'}
-  end
-
-  def create_failed event
-    @event = event
-    render :new
   end
 
   def edit
