@@ -11,4 +11,10 @@ module EventRunners
       end
     end
   end
+
+  class New < Runner
+    def run
+      repo.new_event
+    end
+  end
 end

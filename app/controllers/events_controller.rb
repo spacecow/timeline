@@ -1,22 +1,3 @@
-class Repository
-  attr_accessor :universe
-
-  def initialize universe
-    self.universe = universe
-  end
-
-  def find_all_events
-    universe.events
-  end
-  def new_event *attrs
-    event = universe.events.build
-    EventForm.new event, *attrs
-  end
-  def save_event event
-    event.save
-  end
-end
-
 class EventsController < ApplicationController
   include EventRunners
 
@@ -34,7 +15,7 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = repo.new_event
+    @event = run(New)
   end
 
   def create
@@ -79,10 +60,6 @@ class EventsController < ApplicationController
   def duplicate
     event = current_universe.events.find params[:id]
     @event_form = EventForm.new event, {}, false
-  end
-
-  def repo
-    @repo ||= Repository.new current_universe
   end
 
   private

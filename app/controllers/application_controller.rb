@@ -9,6 +9,10 @@ class ApplicationController < ActionController::Base
     klass.new(self, &block).run *args
   end
 
+  def repo
+    @repo ||= TimelineRepository.new current_universe
+  end
+
   def current_universe_id=(id)
     session[:current_universe_id] = id
   end
