@@ -9,7 +9,7 @@ class Repository
     universe.events
   end
   def new_event *attrs
-    event = universe.events.build 
+    event = universe.events.build
     EventForm.new event, *attrs
   end
   def save_event event
@@ -18,6 +18,8 @@ class Repository
 end
 
 class EventsController < ApplicationController
+  include EventRunners
+
   def index
     @events = repo.find_all_events
     respond_to do |format|
@@ -28,7 +30,7 @@ class EventsController < ApplicationController
 
   def show
     event = current_universe.events.find params[:id]
-    @add_articles_form = AddArticlesForm.new event 
+    @add_articles_form = AddArticlesForm.new event
   end
 
   def new
@@ -36,11 +38,12 @@ class EventsController < ApplicationController
   end
 
   def create
-    CreateRunner.new(self).run(params.require(:event))
+    run(Create, event_params) do |on|
+    end
   end
 
-  def create_successful msg
-    redirect_to events_path, flash:{notice:msg}
+  def create_successful event
+    redirect_to events_path, flash:{notice:'Event created'}
   end
 
   def create_failed event
@@ -65,7 +68,7 @@ class EventsController < ApplicationController
 
   def update_articles
     event = current_universe.events.find params[:id]
-    @add_articles_form = AddArticlesForm.new event 
+    @add_articles_form = AddArticlesForm.new event
     if @add_articles_form.submit params.require(:event)
       redirect_to events_path, flash:{notice:'Articles updated'}
     else
@@ -81,4 +84,11 @@ class EventsController < ApplicationController
   def repo
     @repo ||= Repository.new current_universe
   end
+
+  private
+
+    def event_params
+      params.require(:event)
+    end
+
 end

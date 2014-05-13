@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_universe?
 
+  def run klass, *args, &block
+    klass.new(self, &block).run *args
+  end
+
   def current_universe_id=(id)
     session[:current_universe_id] = id
   end
