@@ -16,7 +16,7 @@ class TokenForm
   def submit params
     self.tokens = params[token_field]
     if valid?
-      #TODO save the addition!
+      persist!
       true
     else
       false

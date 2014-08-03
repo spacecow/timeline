@@ -11,6 +11,13 @@ class AddEventsForm < TokenForm
   end
 
   def events; article.events end
+
+  private
+
+    def persist!
+      article.event_ids = unique_ids
+    end
+
 end
 
 #class AddEventsForm

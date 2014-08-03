@@ -9,15 +9,23 @@ describe 'Article show, add events' do
     fill_in "Events", with:event_tokens
     click_on "Update"
   end
-  subject{ page }
 
   context "success" do
     let(:event_tokens){ event.id }
-    it{ should have_content "Events updated" }
+
+    context "page" do
+      subject{ page }
+      it{ should have_content "Events updated" }
+    end
+    context "created participation" do
+      subject{ Participation }
+      its(:count){ should be 1 }
+    end
   end
 
   context "failure" do
     let(:event_tokens){ "666" }
+    subject{ page }
     it{ should have_content "wrong universe" }
   end
 end
