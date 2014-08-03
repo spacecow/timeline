@@ -23,7 +23,7 @@ describe 'articles/_form.html.erb' do
     end
     describe 'options' do
       subject{ div.all('option').map(&:text).join(", ") }
-      it{ should eq ", Character, Place, Organization" }
+      it{ should eq ", Character, Place, Organization, Book" }
     end
     describe 'selected option' do
       subject{ div.find('option[selected]') }

@@ -3,9 +3,10 @@ require './app/runners/event_runners'
 
 module EventRunners
   describe EventRunners do
-    context "successful" do
-      it("seems to work"){ function } 
-    end
+    #context "successful" do
+    #  it("seems to work"){ function } 
+    #end
+
     #let(:event){ double :event }
     #let(:repo){ double :repo, new_event:event, save_event:save }
     #let(:context){ double :context, repo:repo }

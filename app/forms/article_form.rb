@@ -2,7 +2,7 @@ class ArticleForm
   include ActiveModel::Model
   extend CarrierWave::Mount
 
-  TYPES = %w(Character Place Organization)
+  TYPES = %w(Character Place Organization Book)
 
   attr_reader :type
   attr_accessor :article, :name
