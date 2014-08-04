@@ -2,11 +2,14 @@ Timeline::Application.routes.draw do
   root :to => 'universes#index'
 
   resources :articles, only:[:index, :show, :new, :create, :edit, :update] do
+    #TODO find out if realtions can be nested here too
     member do
       put :update_events
     end
   end
   resources :events, only: [:index, :show, :new, :create, :edit, :update] do
+    resources :relations, only: :new do
+    end
     member do
       put :update_articles
       get :duplicate
