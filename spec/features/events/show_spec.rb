@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Event show' do
-  let(:event){ create :event } 
+  let(:event){ create :event }
   let(:path){ event_path event }
 
   before do
@@ -9,8 +9,7 @@ describe 'Event show' do
     visit path
   end
 
-  context "navigate to new relation" do
-    before{ click_link 'Add Relation' }
-    it{ current_path.should eq new_event_relation_path(event) }
+  context "there are no relations between events" do
+    it{ page.should_not have_text "Add Relation" }
   end
 end

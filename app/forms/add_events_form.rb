@@ -1,13 +1,12 @@
 class AddEventsForm < TokenForm
   token_field :event_tokens
-
   attr_accessor :article
 
   def initialize article
-    self.article = article
     super id:article.id,
-          tokens:article.event_ids.join(','),
-          universe_ids:article.universe_event_ids
+      tokens:article.event_ids.join(','),
+      universe_ids:article.universe_event_ids
+    self.article = article
   end
 
   def events; article.events end

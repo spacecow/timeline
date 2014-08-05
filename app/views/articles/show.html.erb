@@ -1,1 +1,7 @@
+<% present @add_events_form.article do |presenter| %>
+
 <%= render 'add_events_form', add_events_form:@add_events_form %>
+
+<%= presenter.actions %>
+
+<% end %>
