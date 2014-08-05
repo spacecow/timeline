@@ -1,6 +1,12 @@
 require_dependency './app/runners/runner'
 
 module EventRunners
+  class Index < Runner
+    def run
+      repo.find_all_events
+    end
+  end
+
   class Create < Runner
     def run event_params
       event = repo.new_event event_params

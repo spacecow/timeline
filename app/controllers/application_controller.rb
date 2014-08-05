@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_universe?
 
-  def run klass, *args, &block
-    klass.new(self, &block).run *args
+  def run klass, *params, &block
+    klass.new(self, &block).run *params
   end
 
   def repo

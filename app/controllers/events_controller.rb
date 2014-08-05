@@ -2,7 +2,7 @@ class EventsController < ApplicationController
   include EventRunners
 
   def index
-    @events = repo.find_all_events
+    @events = run(Index)
     respond_to do |format|
       format.html
       format.json { render json:@events.where("title like ?", "%#{params[:q]}%") }

@@ -1,26 +1,50 @@
-alias require_dependency require
-
-require_relative '../../app/runners/event_runners'
+require 'fast_helper'
+require './app/runners/event_runners'
 
 module EventRunners
   describe EventRunners do
-    #let(:event){ double :event }
-    #let(:repo){ double :repo, new_event:event, save_event:save }
-    #let(:context){ double :context, repo:repo }
-    #let(:runner){ Create.new context }
-    #let(:event_attrs){ {name:'Johan'} }
-    #let(:function){ runner.run event_attrs }
+    let(:context){ double :context, repo:repo }
+    let(:repo){ double :repo }
+    let(:callback){ lambda { |on|
+      on.success { |*args| [:success, *args] }
+      on.failure { |*args| [:failure, *args] }}}
+    let(:event){ double :event }
+    let(:runner){ runner_class.new(context, &callback) }
+    subject{ function }
 
-    #describe "successful" do
-    #  let(:save){ true }
-    #  before{ context.should_receive(:create_successful).with(event) }
-    #  it("seems to work"){ function }
-    #end
+    describe Index do
+      let(:runner_class){ Index }
+      let(:function){ runner.run }
+      before{ repo.should_receive(:find_all_events){ [event] }}
+      it{ should eq [event] }
+    end
 
-    #describe "successful" do
-    #  let(:save){ false }
-    #  before{ context.should_receive(:create_failed).with(event) }
-    #  it("seems to work"){ function }
-    #end
+    describe Create do
+      let(:runner_class){ Create }
+      let(:function){ runner.run params }
+      let(:params){ {} }
+
+      before do
+        repo.should_receive(:new_event).with(params){ event }
+        repo.should_receive(:save_event).with(event){ save }
+      end
+
+      context "success" do
+        let(:save){ true }
+        it{ should eq [:success] }
+      end
+
+      context "failure" do
+        let(:save){ false }
+        it{ should eq [:failure, event] }
+      end
+    end
+
+    describe New do
+      let(:runner_class){ New }
+      let(:function){ runner.run }
+      before{ repo.should_receive(:new_event){ event }}
+      it{ should eq event }
+    end
   end
 end
