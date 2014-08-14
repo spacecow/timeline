@@ -3,6 +3,7 @@
 <div class="relation form">
   <h3><%= presenter.from_article_name %></h3>
   <%= simple_form_for @relation_form, url:relations_path(@relation_form) do |f| %>
+    <%= f.button :submit %>
   <% end %>
 </div>
 
