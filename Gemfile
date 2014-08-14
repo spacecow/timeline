@@ -20,6 +20,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '2.14.0'
   gem 'pry'
+  gem 'pry-debugger'
 end
 
 group :test do

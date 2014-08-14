@@ -14,8 +14,7 @@ Timeline::Application.routes.draw do
     end
   end
   resources :universes, only: [:show, :index]
-  resources :relations, only: :new do
-  end
+  resources :relations, only: [:new, :create]
 
   resources :article_forms, path: :articles
   resources :event_forms, path: :events
