@@ -10,8 +10,12 @@ class RelationsController < ApplicationController
 
   def create
     relation = Relation.new relation_params
-    relation.save
-    redirect_to relation 
+    @relation = RelationForm.new relation
+    if @relation.save
+      redirect_to relation 
+    else
+      render :new
+    end
   end
 
   private
