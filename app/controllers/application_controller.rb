@@ -20,4 +20,8 @@ class ApplicationController < ActionController::Base
   def current_universe
     @current_universe ||= Universe.find session[:current_universe_id]
   end
+
+  def created mdl
+    {notice:"#{mdl.capitalize} created"}
+  end
 end

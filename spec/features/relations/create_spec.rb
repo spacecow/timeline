@@ -16,6 +16,10 @@ describe 'Relation create' do
       subject{ Relation.first }
       its(:from_article_id){ should be 666 }
     end
+    describe "page" do
+      subject{ page }
+      it{ should have_content "Relation created" }
+    end
   end
 
   context "failure" do

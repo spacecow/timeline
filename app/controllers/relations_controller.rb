@@ -1,18 +1,27 @@
+class RelationRepository
+  def new_relation params={}
+    relation = Relation.new params
+    RelationForm.new relation
+  end
+  def save_relation relation
+    relation.save
+  end
+end
+
 class RelationsController < ApplicationController
   
   def show
   end
 
   def new
-    relation = Relation.new(from_article_id:params[:from_article_id])
-    @relation = RelationForm.new relation
+    init = {from_article_id:params[:from_article_id]}
+    @relation = repo.new_relation init
   end
 
   def create
-    relation = Relation.new relation_params
-    @relation = RelationForm.new relation
-    if @relation.save
-      redirect_to relation 
+    @relation = repo.new_relation relation_params
+    if repo.save_relation @relation
+      redirect_to @relation.relation, created(:relation)
     else
       render :new
     end
@@ -22,6 +31,10 @@ class RelationsController < ApplicationController
 
     def relation_params
       params.require(:relation_form).permit(:from_article_id)
+    end
+
+    def repo
+      @repo ||= RelationRepository.new
     end
 
 end
