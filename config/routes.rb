@@ -17,5 +17,6 @@ Timeline::Application.routes.draw do
   resources :relations, only: [:new, :create, :show]
 
   resources :article_forms, path: :articles
+  resources :relation_forms, path: :relations
   resources :event_forms, path: :events
 end

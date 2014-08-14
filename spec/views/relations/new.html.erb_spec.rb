@@ -5,7 +5,7 @@ describe 'relations/new.html.erb' do
   let(:relation){ Relation.new }
   let(:form){ RelationForm.new relation }
   before do
-    assign :relation_form, form
+    assign :relation, form
     render
   end
 
