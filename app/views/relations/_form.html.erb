@@ -1,8 +1,8 @@
-<% present relation do |presenter| %>
+<% present form do |presenter| %>
 
 <div class="relation form">
   <h3><%= presenter.from_article_name %></h3>
-  <%= simple_form_for relation do |f| %>
+  <%= simple_form_for form do |f| %>
     <%= f.input :from_article_id %>
     <%= f.button :submit %>
   <% end %>

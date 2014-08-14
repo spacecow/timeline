@@ -9,32 +9,36 @@ class RelationRepository
 end
 
 class RelationsController < ApplicationController
+  include RelationRunners
   
   def show
   end
 
   def new
     init = {from_article_id:params[:from_article_id]}
-    @relation = repo.new_relation init
+    @form = repo.new_relation init
   end
 
   def create
-    @relation = repo.new_relation relation_params
-    if repo.save_relation @relation
-      redirect_to @relation.relation, created(:relation)
-    else
-      render :new
+    run(Create, relation_params) do |on|
+      on.success {|form|
+        redirect_to form.relation, created(:relation)
+      }
+      on.failure {|form|
+        @form = form
+        render :new
+      }
     end
+  end
+
+  def repo
+    @repo ||= RelationRepository.new
   end
 
   private
 
     def relation_params
       params.require(:relation_form).permit(:from_article_id)
-    end
-
-    def repo
-      @repo ||= RelationRepository.new
     end
 
 end
