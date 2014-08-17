@@ -11,6 +11,7 @@ FactoryGirl.define do
   
   factory :relation do
     association :from_article, factory: :article
+    association :to_article, factory: :article
   end
 
   factory :universe do

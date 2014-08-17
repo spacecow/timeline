@@ -17,6 +17,10 @@ class Article < ActiveRecord::Base
     super
   end
 
+  def self.same_universe article
+    where(universe_id:article.universe_id)
+  end
+
   def universe_event_ids; universe.event_ids end
 
 end

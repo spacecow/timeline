@@ -33,14 +33,14 @@ ActiveRecord::Schema.define(version: 20140805174124) do
 
   create_table "relations", force: true do |t|
     t.integer "from_article_id", null: false
+    t.integer "to_article_id",   null: false
   end
 
   add_index "relations", ["from_article_id"], name: "from_article_id", using: :btree
+  add_index "relations", ["to_article_id"], name: "to_article_id", using: :btree
 
   create_table "universes", force: true do |t|
     t.string "title"
   end
-
-  add_foreign_key "relations", "articles", name: "relations_ibfk_1", column: "from_article_id"
 
 end

@@ -21,12 +21,12 @@ describe 'Relation create' do
     end
   end
 
-  #context "failure" do
-  #  let(:params){ {} }
-  #  before{ click_on 'Create' }
-  #  describe "page" do
-  #    subject{ page }
-  #    it{ should have_content "can't be blank" }
-  #  end
-  #end
+  context "failure" do
+    let(:params){ {} }
+    before{ click_on 'Create' }
+    describe "page" do
+      subject{ page }
+      it{ should have_content "can't be blank" }
+    end
+  end
 end

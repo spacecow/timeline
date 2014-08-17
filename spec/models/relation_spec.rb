@@ -4,25 +4,49 @@ describe Relation do
   subject{ function }
 
   describe "validations" do
-    let(:creation){ create :relation, from_article_id:from_article_id }
-    context "alive article" do
-      let(:article){ create :article }
-      let(:from_article_id){ article.id }
-      it{ expect{ creation }.to_not raise_error }
+    let(:from_article){ create :article }
+    let(:to_article){ create :article }
+    let(:from_article_id){ from_article.id }
+    let(:to_article_id){ to_article.id }
+    let(:creation){ create :relation,
+      from_article_id:from_article_id, to_article_id:to_article_id }
+    describe "to article is" do
+      context "alive" do
+        it{ expect{ creation }.to_not raise_error }
+      end
+      context "nil" do
+        let(:to_article_id){ nil }
+        it{ expect{ creation }.to raise_error {|e|
+          e.should be_a ActiveRecord::StatementInvalid
+          e.message.should match /doesn't have a default value/ 
+        }}
+      end
+      context "dead" do
+        let(:to_article_id){ 666 }
+        it{ expect{ creation }.to raise_error {|e|
+          e.should be_a ActiveRecord::StatementInvalid
+          e.message.should match /a foreign key constraint fails/ 
+        }}
+      end
     end
-    context "no article" do
-      let(:from_article_id){ nil }
-      it{ expect{ creation }.to raise_error {|e|
-        e.should be_a ActiveRecord::StatementInvalid
-        e.message.should match /doesn't have a default value/ 
-      }}
-    end
-    context "dead article" do
-      let(:from_article_id){ 666 }
-      it{ expect{ creation }.to raise_error {|e|
-        e.should be_a ActiveRecord::StatementInvalid
-        e.message.should match /a foreign key constraint fails/ 
-      }}
+    describe "from article is" do
+      context "alive" do
+        it{ expect{ creation }.to_not raise_error }
+      end
+      context "nil" do
+        let(:from_article_id){ nil }
+        it{ expect{ creation }.to raise_error {|e|
+          e.should be_a ActiveRecord::StatementInvalid
+          e.message.should match /doesn't have a default value/ 
+        }}
+      end
+      context "dead" do
+        let(:from_article_id){ 666 }
+        it{ expect{ creation }.to raise_error {|e|
+          e.should be_a ActiveRecord::StatementInvalid
+          e.message.should match /a foreign key constraint fails/ 
+        }}
+      end
     end
   end
 

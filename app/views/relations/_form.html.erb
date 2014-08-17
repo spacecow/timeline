@@ -1,4 +1,8 @@
 <%= simple_form_for form, as: :relation do |f| %>
   <%= f.input :from_article_id, as: :hidden %>
+  <%= f.input :to_article_id,
+      collection:Article.same_universe(form.from_article).
+        reject{|e| e==form.from_article}.
+        map{|e| [e.id, e.name]} %>
   <%= f.button :submit %>
 <% end %>
