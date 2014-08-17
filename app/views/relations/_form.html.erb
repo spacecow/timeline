@@ -1,4 +1,4 @@
-<%= simple_form_for form do |f| %>
-  <%= f.input :from_article_id %>
+<%= simple_form_for form, as: :relation do |f| %>
+  <%= f.input :from_article_id, as: :hidden %>
   <%= f.button :submit %>
 <% end %>

@@ -1,7 +1,8 @@
 class RelationPresenter < BasePresenter
+  presents :relation
 
   def from_article_name
-    "Dan Josefsson"
+    relation.from_article_name
   end
 
 end

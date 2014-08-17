@@ -4,7 +4,11 @@ describe 'relations/new.html.erb' do
   let(:rendering){ Capybara.string rendered }
   let(:relation){ Relation.new }
   let(:form){ RelationForm.new relation }
+  let(:presenter){ double :presenter }
   before do
+    view.should_receive(:present).and_yield presenter
+    presenter.should_receive(:from_article_name){ "Dan Josefsson" }
+    
     assign :form, form
     render
   end

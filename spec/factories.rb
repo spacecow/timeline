@@ -8,6 +8,10 @@ FactoryGirl.define do
     universe
     title 'factory title'
   end
+  
+  factory :relation do
+    association :from_article, factory: :article
+  end
 
   factory :universe do
   end
