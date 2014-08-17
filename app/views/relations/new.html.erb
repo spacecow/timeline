@@ -1,1 +1,8 @@
-<%= render 'form', form:@form %>
+<% present @form.relation do |presenter| %>
+
+<div class="relation form">
+  <h3><%= presenter.from_article_name %></h3>
+  <%= render 'form', form:@form %>
+</div>
+
+<% end %>
