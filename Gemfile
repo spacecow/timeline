@@ -9,7 +9,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
-gem 'simple_form', github: 'plataformatec/simple_form'
+gem 'simple_form', git: 'https://github.com/plataformatec/simple_form'
 gem 'carrierwave'
 gem 'rmagick'
 
