@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Article show' do
-  let(:article){ create :article }
+  let(:article){ create :article, type:'Character' }
   let(:path){ article_path article }
 
   before do
