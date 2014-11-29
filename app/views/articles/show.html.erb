@@ -1,7 +1,9 @@
 <% present(@add_events_form.article, ArticlePresenter) do |presenter| %>
 
-<%= render 'add_events_form', add_events_form:@add_events_form %>
-
-<%= presenter.actions %>
+<div class="article">
+  <h3><%= presenter.name %></h3>
+  <%= render 'add_events_form', add_events_form:@add_events_form %>
+  <%= render 'actions', article:@add_events_form.article %>
+</div>
 
 <% end %>

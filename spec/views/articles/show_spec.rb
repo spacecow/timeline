@@ -1,15 +1,33 @@
-require 'spec_helper'
+require 'view_helper'
 
 describe 'articles/show.html.erb' do
-  let(:article){ mock_model(Article).as_null_object }
-  let(:add_events_form){ AddEventsForm.new article }
   let(:rendering){ Capybara.string rendered }
+  let(:form){ double :form, article:article }
+  let(:article){ double :article }
+  let(:presenter){ double :presenter }
   before do
-    add_events_form.should_receive(:events) #stack level too deep
-    assign :add_events_form, add_events_form
+    assign :add_events_form, form
+    view.should_receive(:present).and_yield presenter
+    presenter.should_receive(:name){ 'Tarzan' }
+    stub_template "articles/_add_events_form.html.erb" => "<form>form</form>"
+    stub_template "articles/_actions.html.erb" => "<ul>actions</ul>"
     render
   end
 
-  it{ rendering.should have_selector 'ul.actions' }
+  context "div" do
+    subject(:div){ rendering.find 'div.article' }
+    context "header" do
+      subject{ div.find 'h3' }
+      its(:text){ should eq 'Tarzan' }
+    end 
+    context "form" do
+      subject{ div.find 'form' }
+      its(:text){ should eq "form" }
+    end
+    context "ul" do
+      subject{ div.find 'ul' }
+      its(:text){ should eq "actions" }
+    end
+  end
 
 end

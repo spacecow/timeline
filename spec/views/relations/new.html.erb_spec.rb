@@ -15,8 +15,8 @@ describe 'relations/new.html.erb' do
 
   context "form div" do
     subject(:div){ rendering.find 'div.relation.form' }
-    context "h3 title" do
-      subject{ p rendered; div.find 'h3' }
+    context "header" do
+      subject{ div.find 'h3' }
       its(:text){ should eq "Dan Josefsson" }
     end
     context "form" do
