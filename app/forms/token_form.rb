@@ -30,7 +30,7 @@ class TokenForm
 
   private
 
-    def unique_ids; tokens.split('.').map(&:to_i).uniq end
+    def unique_ids; tokens.split(',').map(&:to_i).uniq end
 
     def tokens_belong_to_same_universe
       errors.add(token_field, "wrong universe") unless (unique_ids - universe_ids).empty?

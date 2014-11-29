@@ -28,4 +28,5 @@ describe 'Article show, add events' do
     subject{ page }
     it{ should have_content "wrong universe" }
   end
+
 end
