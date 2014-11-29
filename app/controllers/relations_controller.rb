@@ -38,7 +38,7 @@ class RelationsController < ApplicationController
   private
 
     def relation_params
-      params.require(:relation).permit(:from_article_id)
+      params.require(:relation).permit(:from_article_id, :to_article_id)
     end
 
 end

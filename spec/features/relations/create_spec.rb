@@ -2,11 +2,16 @@ require 'spec_helper'
 
 describe 'Relation create' do
   let(:article){ create :article }
-  let(:params){ {from_article_id:article.id} }
-  before{ visit new_relation_path params }
+  before do
+    create :article, universe:article.universe, name:'yeah'
+    visit new_relation_path  from_article_id:article.id
+  end
 
   context "success" do
-    before{ click_on 'Create' }
+    before do
+      select "yeah", from:'To article'
+      click_on 'Create'
+    end
     describe Relation do
       subject{ Relation }
       its(:count){ should be 1 }
@@ -22,7 +27,6 @@ describe 'Relation create' do
   end
 
   context "failure" do
-    let(:params){ {} }
     before{ click_on 'Create' }
     describe "page" do
       subject{ page }

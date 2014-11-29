@@ -3,11 +3,12 @@ require 'spec_helper'
 describe 'relations/_form.html.erb' do
   #let(:event){ mock_model Event, title:'The Trident' }
   let(:article){ create :article, name:'Dan Josefsson' }
+  let(:thomas){ create :article, name:'Thomas Quick', universe:article.universe }
   let(:relation){ Relation.new from_article:article }
   let(:form){ RelationForm.new relation }
   let(:rendering){ Capybara.string rendered }
   before do
-    create :article, name:'Thomas Quick', universe:article.universe
+    thomas
     render 'form', form:form
   end
 
@@ -24,7 +25,7 @@ describe 'relations/_form.html.erb' do
     subject(:div){ rendering.find '.relation_to_article_id' }
     context 'options' do
       subject{ div.all 'select option' }
-      it{ expect(subject.map(&:value)).to eq ["", "Thomas Quick"] }
+      it{ expect(subject.map(&:value)).to eq ["", thomas.id.to_s] }
     end
   end
 end

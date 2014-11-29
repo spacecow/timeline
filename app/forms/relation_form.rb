@@ -3,6 +3,7 @@ class RelationForm < BaseForm
   attr_accessor :from_article_id, :to_article_id
 
   validates :from_article_id, presence:true
+  validates :to_article_id, presence:true
 
   def initialize relation
     super relation

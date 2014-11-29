@@ -3,6 +3,6 @@
   <%= f.input :to_article_id,
       collection:Article.same_universe(form.from_article).
         reject{|e| e==form.from_article}.
-        map{|e| [e.id, e.name]} %>
+        map{|e| [e.name, e.id]} %>
   <%= f.button :submit %>
 <% end %>
