@@ -44,10 +44,14 @@ class EventForm
     end
 
     def uniqueness_of_title
-      errors.add(:title, 'has already been taken') if event_titles.include? title
+      errors.add(:title, 'has already been taken') if event_titles(oneself:false).include? title
     end
 
     def universe; @universe ||= event.universe end
-    def event_titles; universe.events.map(&:title) end
+    def event_titles(oneself:)
+      events = universe.events
+      events = events.reject{|e| e==event} unless oneself
+      events.map(&:title)
+    end
 
 end

@@ -13,7 +13,7 @@ describe EventForm do
     let(:event_titles){ [] }
     let(:image_error){ nil }
     before do
-      form.should_receive(:event_titles).and_return event_titles
+      form.should_receive(:event_titles).with(oneself:false).once.and_return event_titles
       form.should_receive(:image_integrity_error).and_return image_error
       form.valid?
     end
