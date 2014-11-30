@@ -1,7 +1,9 @@
-<% present @add_articles_form.event do |presenter| %>
-
-<%= render 'add_articles_form', add_articles_form:@add_articles_form %>
-
-<%= presenter.actions %>
-
-<% end %>
+<div class="event">
+  <h3>The Slaughter</h3>
+  <%= render 'add_articles_form', add_articles_form:@add_articles_form %>
+  <ul class="actions">
+    <li class="action edit">
+      <%= link_to "Edit", edit_event_path(@add_articles_form.event) %>
+    </li>
+  </ul>
+</div>
