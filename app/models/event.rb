@@ -10,4 +10,8 @@ class Event < ActiveRecord::Base
 
   def universe_article_ids; universe.article_ids end
 
+  def self.same_universe event
+    where(universe_id:event.universe_id)
+  end
+
 end

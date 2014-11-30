@@ -2,7 +2,7 @@ class EventForm
   include ActiveModel::Model
   extend CarrierWave::Mount
 
-  attr_accessor :event, :title, :image, :persisted
+  attr_accessor :event, :title, :image, :parent_event_id, :persisted
   validates :title, presence:true
   validate :uniqueness_of_title
   validate :upload_must_be_image
@@ -12,6 +12,7 @@ class EventForm
   def initialize event, params={}, persisted = nil
     self.event = event
     self.title = event.title
+    self.parent_event_id = event.parent_event_id
     super params
     self.persisted = persisted
   end
@@ -34,7 +35,7 @@ class EventForm
   private
 
     def persist!
-      event.update! title:title, image:image
+      event.update! title:title, image:image, parent_event_id:parent_event_id
     end
 
     def upload_must_be_image

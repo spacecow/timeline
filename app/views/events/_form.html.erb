@@ -1,6 +1,7 @@
-<%= simple_form_for event, as: :event do |f| %>
+<%= simple_form_for form, as: :event do |f| %>
   <%= f.input :title %>
   <%= f.input :image %>
   <%= f.input :image_cache, as: :hidden %>
+  <%= f.input :parent_event_id, collection:Event.same_universe(form.event).reject{|e| e==form.event} %>
   <%= f.button :submit %>
 <% end %>
