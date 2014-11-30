@@ -1,5 +1,6 @@
 <%= simple_form_for form, as: :event do |f| %>
   <%= f.input :title %>
+  <%= f.input :description, as: :text %>
   <%= f.input :image %>
   <%= f.input :image_cache, as: :hidden %>
   <%= f.input :parent_event_id, collection:Event.same_universe(form.event).reject{|e| e==form.event} %>

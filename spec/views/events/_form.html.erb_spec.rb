@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'events/_form.html.erb' do
-  let(:event){ create :event, title:'The Trident', parent_event_id:666 }
+  let(:event){ create :event, title:'The Trident', description:'A description', parent_event_id:666 }
   let(:event2){ create :event, title:'Same universe', universe:event.universe }
   let(:form){ EventForm.new event }
   let(:rendering){ Capybara.string rendered }
@@ -16,6 +16,14 @@ describe 'events/_form.html.erb' do
     context 'value' do
       subject{ div.find 'input' }
       its(:value){ should eq 'The Trident' }
+    end
+  end
+
+  describe 'Description' do
+    subject(:div){ rendering.find '.event_description' }
+    context 'value' do
+      subject{ div.find 'textarea' }
+      its(:value){ should eq 'A description' }
     end
   end
 

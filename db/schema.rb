@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141130052038) do
+ActiveRecord::Schema.define(version: 20141130093428) do
 
   create_table "articles", force: true do |t|
     t.string  "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 20141130052038) do
     t.integer "universe_id"
     t.string  "image"
     t.integer "parent_event_id"
+    t.text    "description"
   end
 
   create_table "participations", force: true do |t|
@@ -34,11 +35,7 @@ ActiveRecord::Schema.define(version: 20141130052038) do
 
   create_table "relations", force: true do |t|
     t.integer "from_article_id", null: false
-    t.integer "to_article_id",   null: false
   end
-
-  add_index "relations", ["from_article_id"], name: "from_article_id", using: :btree
-  add_index "relations", ["to_article_id"], name: "to_article_id", using: :btree
 
   create_table "universes", force: true do |t|
     t.string "title"

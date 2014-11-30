@@ -5,7 +5,7 @@ require_relative '../../app/uploaders/image_uploader'
 require_relative '../../app/forms/event_form'
 
 describe EventForm do
-  let(:event){ double title:title, parent_event_id:666 }
+  let(:event){ double title:title, description:'a description', parent_event_id:666 }
   let(:form){ EventForm.new event }
 
   describe "#valid?" do
