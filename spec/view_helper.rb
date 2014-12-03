@@ -1,3 +1,5 @@
+require 'rspec/its'
+
 class ErbBinding
   def initialize(hash)
     hash.each do |key, value|

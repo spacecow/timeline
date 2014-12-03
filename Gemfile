@@ -19,7 +19,8 @@ group :doc do
 end
 
 group :development, :test do
-  gem 'rspec-rails', '2.14.0'
+  gem 'rspec-rails'
+  gem 'rspec-its'
   gem 'pry'
   gem 'pry-debugger'
 end
