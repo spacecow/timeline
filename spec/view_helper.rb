@@ -1,10 +1,8 @@
-require 'rails/all'
-unless defined? Timeline
-  module Timeline
-    class Application < Rails::Application
+class ErbBinding
+  def initialize(hash)
+    hash.each do |key, value|
+      singleton_class.send(:define_method,key){ value }
     end
   end
-  Timeline::Application.initialize!
+  def get_bindings; binding end
 end
-require 'minitest/autorun'
-require 'rspec/rails'
