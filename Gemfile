@@ -12,6 +12,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'simple_form', git: 'https://github.com/plataformatec/simple_form'
 gem 'carrierwave'
 gem 'rmagick'
+gem 'rb-readline'
 
 group :doc do
   gem 'sdoc', require: false
