@@ -15,7 +15,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision :shell, path:"update.sh"
   config.vm.provision :shell, path:"mysql.sh"
   config.vm.provision :shell, path:"magick.sh"
-  config.vm.provision :shell, path:"rbenv.sh", privileged:false
+  config.vm.provision :shell, path:"rbenv-version.sh", privileged:false
   config.vm.provision :shell, path:"rails.sh", privileged:false
 
   # Disable automatic box update checking. If you disable this, then
